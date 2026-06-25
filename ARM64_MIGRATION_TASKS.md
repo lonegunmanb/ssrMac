@@ -40,7 +40,7 @@
 | T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | done |
 | T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | done |
 | T6 | 清理 iOS 残留 configuration | 🔴 | T3 | done |
-| T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
+| T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | done |
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | done |
 | T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | done |
@@ -166,7 +166,7 @@ T14 依赖 T7/T8/T9/T10/T12
 
 > 主 app 的 Frameworks 构建阶段（L364-L383）链接 7 个第三方产物，均为 `sourceTree = BUILT_PRODUCTS_DIR`：`ssrNative.framework`（L368）、`GZIP.framework`、`mbedtls.framework`、`AFNetworking.framework`、`libsodium.framework`、`GCDWebServers.framework`、`libuv.framework`。其中 `libuv/libsodium/mbedtls` framework **没有子工程依赖**，需手工产出。
 
-### [ ] T7 · 重编 ssrNative.framework (arm64) 🔴
+### [x] T7 · 重编 ssrNative.framework (arm64) 🔴
 
 - **依赖**: T2, T4
 - **背景**: C 核心 `ssrNative.framework` 来自子工程 `shadowsocksr-native/ios/ssrNative.xcodeproj`（引用见 L267；子工程依赖配置 `PBXContainerItemProxy` L82-L95、`PBXTargetDependency` "ssrNative macOS" L896-L903 区域）。这是整条链的根。

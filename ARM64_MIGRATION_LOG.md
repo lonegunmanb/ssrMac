@@ -83,6 +83,17 @@
 - Validation: `xcodebuild -showBuildSettings` for the three macOS schemes reports `ARCHS = arm64 x86_64`, `MACOSX_DEPLOYMENT_TARGET = 11.0`, and Release `ONLY_ACTIVE_ARCH = NO`.
 - Validation: Release arm64 builds succeeded for `AFNetworking.framework`, `GCDWebServers.framework`, and `GZIP.framework`; `lipo -archs` reported `arm64` for all three framework binaries.
 
+### T7 ssrNative arm64 framework
+
+- Converted `shadowsocksr-native` and all nested dependencies from submodules into vendored source directories in the parent repository.
+- Removed root and nested `.gitmodules` metadata; the repository no longer requires recursive submodule checkout.
+- Updated `ssrNative macOS` to `MACOSX_DEPLOYMENT_TARGET = 11.0`, `ARCHS = "$(ARCHS_STANDARD)"`, Debug `ONLY_ACTIVE_ARCH = YES`, and Release `ONLY_ACTIVE_ARCH = NO`.
+- Updated vendored `libuv`, `libsodium`, and `mbedtls` macOS framework targets to the same macOS 11 / `ARCHS_STANDARD` policy.
+- Removed stale `pthread-fixes.c` references from the vendored libuv Xcode project; that source file is not present in the vendored libuv revision.
+- Validation: `ssrNative.xcodeproj`, `libuv.xcodeproj`, `libsodium.xcodeproj`, and `mbedtls.xcodeproj` pass `plutil -lint`.
+- Validation: `xcodebuild -showBuildSettings` for `ssrNative macOS` reports `ARCHS = arm64 x86_64`, `MACOSX_DEPLOYMENT_TARGET = 11.0`, and Release `ONLY_ACTIVE_ARCH = NO`.
+- Validation: Release arm64 build succeeded for `ssrNative.framework`; `lipo -archs` reported `arm64` for `ssrNative`, `libuv`, `libsodium`, and `mbedtls` framework binaries.
+
 ### T16 build script rewrite
 
 - Replaced the stale `AppProxyCap` / `iphonesimulator` build script with a logged `xcodebuild` entry point for `ssrMac.xcodeproj`, scheme `ssrMac`, Release, and `arm64`.

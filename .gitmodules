@@ -1,4 +1,0 @@
-[submodule "shadowsocksr-native"]
-	path = shadowsocksr-native
-	url = https://github.com/ShadowsocksR-Live/shadowsocksr-native.git
-	branch = master
