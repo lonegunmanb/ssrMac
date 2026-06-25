@@ -16,6 +16,14 @@
 - Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
 - Validation: static search confirmed no remaining `MACOSX_DEPLOYMENT_TARGET = 10.8` or `compatibilityVersion = "Xcode 3.2"` in the main project file.
 
+### T4 arm64 build settings
+
+- Added target-level `ARCHS = "$(ARCHS_STANDARD)"` to Debug and Release for `ssrMac` and `ssr_mac_sysconf`.
+- Added target-level `ONLY_ACTIVE_ARCH = YES` for Debug and `ONLY_ACTIVE_ARCH = NO` for Release on both targets.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
+- Validation: static search confirmed no `EXCLUDED_ARCHS` or `VALID_ARCHS` settings were introduced.
+- Pending environment validation: `xcodebuild -showBuildSettings` remains blocked until the Xcode license is accepted.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.

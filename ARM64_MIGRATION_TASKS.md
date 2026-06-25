@@ -37,7 +37,7 @@
 | T1 | 拉取并初始化全部子模块 | 🔴 | — | done |
 | T2 | 准备 arm64 工具链与依赖库 | 🔴 | T1 | pending |
 | T3 | 升级工程格式与部署目标 | 🔴 | T1 | done |
-| T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | pending |
+| T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | done |
 | T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | pending |
 | T6 | 清理 iOS 残留 configuration | 🔴 | T3 | pending |
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
@@ -122,7 +122,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - 工程内不再出现 `MACOSX_DEPLOYMENT_TARGET = 10.8`。
   - `compatibilityVersion` 升级为现代 Xcode 值；工程在 Xcode ≥ 16 中无格式告警。
 
-### [ ] T4 · 设置 arm64 架构构建参数 🔴
+### [x] T4 · 设置 arm64 架构构建参数 🔴
 
 - **依赖**: T3
 - **背景**: 主工程未硬编码 `i386/x86_64`，默认走 `ARCHS_STANDARD`（含 arm64）。本任务显式固化架构设置，避免歧义，并为 Debug/Release 区分 `ONLY_ACTIVE_ARCH`。
