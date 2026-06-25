@@ -104,6 +104,15 @@
 - Validation: the packaging script produced `libuv.framework`, `libsodium.framework`, `mbedtls.framework`, and `libcrypto.framework` in a temporary output directory; `lipo -archs` confirmed `arm64` for all four binaries.
 - Pending environment validation: full `./build.sh` still requires Xcode first launch/license acceptance and the remaining dependent migration tasks.
 
+### T8 C library arm64 frameworks
+
+- Revalidated `scripts/package-arm64-frameworks.sh`; it packages Homebrew `libuv`, `libsodium`, `mbedtls`, and `libcrypto` framework bundles with `arm64` binaries.
+- After vendoring `shadowsocksr-native`, the main build now uses the vendored Xcode subprojects for `libuv`, `libsodium`, and `mbedtls` instead of pre-copying Homebrew frameworks into `BUILT_PRODUCTS_DIR`.
+- Updated `build.sh` so external Homebrew framework packaging is opt-in via `PACKAGE_EXTERNAL_FRAMEWORKS=YES`; the default build avoids overwriting Xcode-built vendored framework products.
+- Validation: direct `xcodebuild` and default `./build.sh` Release arm64 builds succeeded for `ssrMac.app`.
+- Validation: `lipo -archs` reported `arm64` for `ssrMac`, `ssrNative`, `libuv`, `libsodium`, `mbedtls`, `AFNetworking`, `GCDWebServers`, and `GZIP` in the built app bundle.
+- Validation: `codesign --verify --deep --strict build/DerivedData/Build/Products/Release/ssrMac.app` passed.
+
 ### Working tree notes
 
 - `AGENTS.md` has been committed to the parent repository as logging guidance.

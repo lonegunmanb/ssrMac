@@ -8,6 +8,7 @@ SCHEME="${SCHEME:-ssrMac}"
 CONFIGURATION="${CONFIGURATION:-Release}"
 ARCH="${ARCH:-arm64}"
 DERIVED_DATA_PATH="${DERIVED_DATA_PATH:-$ROOT_DIR/build/DerivedData}"
+PACKAGE_EXTERNAL_FRAMEWORKS="${PACKAGE_EXTERNAL_FRAMEWORKS:-NO}"
 PACKAGE_FRAMEWORKS_SCRIPT="$ROOT_DIR/scripts/package-arm64-frameworks.sh"
 
 log() {
@@ -20,12 +21,15 @@ log "Scheme: $SCHEME"
 log "Configuration: $CONFIGURATION"
 log "Architecture: $ARCH"
 log "Derived data: $DERIVED_DATA_PATH"
+log "Package external frameworks: $PACKAGE_EXTERNAL_FRAMEWORKS"
 
-if [[ -x "$PACKAGE_FRAMEWORKS_SCRIPT" ]]; then
+if [[ "$PACKAGE_EXTERNAL_FRAMEWORKS" == "YES" && -x "$PACKAGE_FRAMEWORKS_SCRIPT" ]]; then
 	log "Packaging arm64 dependency frameworks"
 	"$PACKAGE_FRAMEWORKS_SCRIPT" "$DERIVED_DATA_PATH/Build/Products/$CONFIGURATION"
+elif [[ "$PACKAGE_EXTERNAL_FRAMEWORKS" == "YES" ]]; then
+	log "Dependency framework packaging script not found; skipping external packaging"
 else
-	log "Dependency framework packaging script not found; skipping T8 packaging hook"
+	log "Skipping external framework packaging; vendored Xcode subprojects provide linked C frameworks"
 fi
 
 log "Running xcodebuild"

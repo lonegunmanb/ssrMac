@@ -41,7 +41,7 @@
 | T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | done |
 | T6 | 清理 iOS 残留 configuration | 🔴 | T3 | done |
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | done |
-| T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
+| T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | done |
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | done |
 | T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | done |
 | T11 | 提权机制现代化 (SMAppService/XPC) | 🟢 | T4 | pending |
@@ -179,7 +179,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - `lipo -archs <产物>/ssrNative.framework/Versions/A/ssrNative` 含 `arm64`。
   - 主工程链接阶段无 "missing arm64 slice" 相关错误。
 
-### [ ] T8 · 产出 4 个 C 库 arm64 framework 🔴
+### [x] T8 · 产出 4 个 C 库 arm64 framework 🔴
 
 - **依赖**: T2, T4
 - **背景**: `libuv`/`libsodium`/`mbedtls`/`openssl(libcrypto)` 不在子模块内，是外部预编译，需自行为 arm64 产出并放入 `BUILT_PRODUCTS_DIR`。这是工作量最大的阻塞项。
