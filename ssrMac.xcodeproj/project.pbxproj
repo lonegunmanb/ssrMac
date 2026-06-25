@@ -263,15 +263,12 @@
 		3A40B2CF2019E0BC00F33F80 /* qrCodeOnScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qrCodeOnScreen.h; sourceTree = "<group>"; };
 		3A40B2D02019E0BC00F33F80 /* qrCodeOnScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = qrCodeOnScreen.m; sourceTree = "<group>"; };
 		3A4AAEB3201B2FB7002F23AF /* ConfigWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigWindow.xib; sourceTree = "<group>"; };
-		3A4AAEB5201B5981002F23AF /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = /usr/local/lib/libuv.a; sourceTree = "<group>"; };
 		3A95CC272070EB0A00E507E3 /* ssrNative.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ssrNative.xcodeproj; path = "shadowsocksr-native/ios/ssrNative.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		3A95CC352070EB8800E507E3 /* libsodium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = libsodium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A95CC372070EB8800E507E3 /* libuv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = libuv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A95CC392070EB8800E507E3 /* mbedtls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = mbedtls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ABFEC852534AC8100A12D18 /* net_port_is_free.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = net_port_is_free.h; sourceTree = "<group>"; };
 		3ABFEC862534AC8100A12D18 /* net_port_is_free.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = net_port_is_free.c; sourceTree = "<group>"; };
-		3ACA8C8920199CB500839E41 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = /usr/local/lib/libsodium.a; sourceTree = "<group>"; };
-		3ACA8C8B20199CBA00839E41 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = /usr/local/lib/libcrypto.a; sourceTree = "<group>"; };
 		3ACA8CC92019C17800839E41 /* ShadowsocksRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShadowsocksRunner.m; path = ShadowWeb/ShadowsocksRunner.m; sourceTree = SOURCE_ROOT; };
 		3ACA8CCA2019C17800839E41 /* ShadowsocksRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowsocksRunner.h; path = ShadowWeb/ShadowsocksRunner.h; sourceTree = SOURCE_ROOT; };
 		3AD601372018D47700403182 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -477,9 +474,6 @@
 				3A95CC352070EB8800E507E3 /* libsodium.framework */,
 				3A95CC372070EB8800E507E3 /* libuv.framework */,
 				3A95CC392070EB8800E507E3 /* mbedtls.framework */,
-				3A4AAEB5201B5981002F23AF /* libuv.a */,
-				3ACA8C8B20199CBA00839E41 /* libcrypto.a */,
-				3ACA8C8920199CB500839E41 /* libsodium.a */,
 				62E2E19A1A5AB23700C9A2E1 /* Security.framework */,
 				62E2E1981A5AB21E00C9A2E1 /* SystemConfiguration.framework */,
 				628C91C51A07B6C800BA1566 /* QuartzCore.framework */,
@@ -1149,10 +1143,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_FILE = "ssrMac/ssrMac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/AFNetworking.framework/Versions/Current @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				OTHER_LDFLAGS = "-w";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssrlive.macClient;
@@ -1190,10 +1184,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_FILE = "ssrMac/ssrMac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/AFNetworking.framework/Versions/Current @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				OTHER_LDFLAGS = "-w";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssrlive.macClient;

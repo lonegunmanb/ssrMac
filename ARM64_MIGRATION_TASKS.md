@@ -38,7 +38,7 @@
 | T2 | 准备 arm64 工具链与依赖库 | 🔴 | T1 | pending |
 | T3 | 升级工程格式与部署目标 | 🔴 | T1 | done |
 | T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | done |
-| T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | pending |
+| T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | done |
 | T6 | 清理 iOS 残留 configuration | 🔴 | T3 | pending |
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
@@ -135,7 +135,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - 工程内无 `EXCLUDED_ARCHS`。
   - `xcodebuild ... -showBuildSettings | grep ARCHS` 显示含 `arm64`。
 
-### [ ] T5 · 清理死引用与 Intel 路径假设 🔴
+### [x] T5 · 清理死引用与 Intel 路径假设 🔴
 
 - **依赖**: T3
 - **背景**: 三条 `/usr/local/lib/*.a` 为历史死引用（`libuv.a` L266、`libsodium.a` L273、`libcrypto.a` L274，均在 `<group>` 中未参与链接）；`LIBRARY_SEARCH_PATHS`/`HEADER_SEARCH_PATHS` 指向 Intel Homebrew 路径。

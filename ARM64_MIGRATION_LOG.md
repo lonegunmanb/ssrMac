@@ -24,6 +24,14 @@
 - Validation: static search confirmed no `EXCLUDED_ARCHS` or `VALID_ARCHS` settings were introduced.
 - Pending environment validation: `xcodebuild -showBuildSettings` remains blocked until the Xcode license is accepted.
 
+### T5 Intel path cleanup
+
+- Removed dead PBX file references for `/usr/local/lib/libuv.a`, `/usr/local/lib/libsodium.a`, and `/usr/local/lib/libcrypto.a`.
+- Removed those three dead `.a` entries from the Frameworks group.
+- Changed the app target `HEADER_SEARCH_PATHS` and `LIBRARY_SEARCH_PATHS` from `/usr/local` to `/opt/homebrew` for Debug and Release.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
+- Validation: static search confirmed the main project file no longer contains `/usr/local`, `libuv.a`, `libsodium.a`, or `libcrypto.a` references.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.
