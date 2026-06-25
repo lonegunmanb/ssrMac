@@ -35,7 +35,7 @@
 | 任务 | 标题 | 性质 | 依赖 | 状态 |
 |---|---|---|---|---|
 | T1 | 拉取并初始化全部子模块 | 🔴 | — | done |
-| T2 | 准备 arm64 工具链与依赖库 | 🔴 | T1 | pending |
+| T2 | 准备 arm64 工具链与依赖库 | 🔴 | T1 | done |
 | T3 | 升级工程格式与部署目标 | 🔴 | T1 | done |
 | T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | done |
 | T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | done |
@@ -85,7 +85,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - `git submodule status` 四行均以空格（已 checkout）开头，无 `-` 前缀。
   - 上述 4 个 `.xcodeproj` 路径均可访问。
 
-### [ ] T2 · 准备 arm64 工具链与依赖库 🔴
+### [x] T2 · 准备 arm64 工具链与依赖库 🔴
 
 - **依赖**: T1
 - **背景**: arm64 Homebrew 默认前缀为 `/opt/homebrew`（Intel 为 `/usr/local`）。T8 需要这些库的 arm64 头文件与静态库来交叉编译/打包 framework。

@@ -9,6 +9,14 @@
 - Xcode license has not been accepted; `xcodebuild` prompts for license acceptance before project parsing/builds can run.
 - Homebrew C libraries checked from `/opt/homebrew`; `libsodium`, `libuv`, `mbedtls`, and `openssl@3` library artifacts include `arm64` slices.
 
+### T2 environment verified
+
+- `xcode-select -p` now returns `/Applications/Xcode.app/Contents/Developer`.
+- `xcodebuild -version` reports Xcode 26.5 / build 17F42.
+- `brew --prefix` returns `/opt/homebrew`.
+- Required Homebrew formulas are installed: `libsodium`, `libuv`, `mbedtls`, `openssl@3`, `automake`, `autoconf`, `libtool`, `pkg-config`, and `cmake`.
+- Validation: `lipo -archs` reports `arm64` for `libsodium.a`, `libuv.a`, `libmbedtls.a`, `libmbedx509.a`, `libmbedcrypto.a`, and `libcrypto.a`.
+
 ### T3 project modernization
 
 - Updated `ssrMac.xcodeproj/project.pbxproj` to Xcode 26 project markers: `objectVersion = 77` and `LastUpgradeCheck = 1700`.
