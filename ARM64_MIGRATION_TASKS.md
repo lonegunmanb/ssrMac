@@ -43,7 +43,7 @@
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | pending |
-| T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | pending |
+| T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | done |
 | T11 | 提权机制现代化 (SMAppService/XPC) | 🟢 | T4 | pending |
 | T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | done |
 | T13 | Hardened Runtime + 公证 | 🟢 | T12, T7, T8, T9, T10 | pending |
@@ -209,7 +209,7 @@ T14 依赖 T7/T8/T9/T10/T12
 
 ## 阶段 3 — 弃用 API 替换
 
-### [ ] T10 · WebView → 原生二维码 (CIQRCodeGenerator) 🔴
+### [x] T10 · WebView → 原生二维码 (CIQRCodeGenerator) 🔴
 
 - **依赖**: T3
 - **背景**: 旧版 WebKit `WebView` 在现代 macOS 上已移除/弃用。当前二维码窗口用 `WebView` 加载 `qrcode.htm` + `jquery.min.js` + `qrcode.min.js` 渲染。引用点：`SWBQRCodeWindowController.h` L14（`IBOutlet WebView *webView`）、`SWBQRCodeWindowController.m` L25/L31/L72；`qrCodeOnScreen.m`；`WebKit.framework` 链接（L378，文件引用 L317 指向 `MacOSX10.9.sdk`，资源打包 L847-L849）。

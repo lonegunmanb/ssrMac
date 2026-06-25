@@ -38,10 +38,6 @@
 		6232047718C08C6C001A30B9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 628C3DE118AD5AFA0090632A /* Localizable.strings */; };
 		625E5BBA19EA350F007A5124 /* QRCodeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 625E5BB919EA350F007A5124 /* QRCodeWindow.xib */; };
 		625E5BBD19EA36D2007A5124 /* SWBQRCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625E5BBC19EA36D2007A5124 /* SWBQRCodeWindowController.m */; };
-		625E5BBE19EA3855007A5124 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 627A6E5618B4887000493BBC /* WebKit.framework */; };
-		625E5BC119EA3A43007A5124 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 625E5BBF19EA3A43007A5124 /* jquery.min.js */; };
-		625E5BC219EA3A43007A5124 /* qrcode.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 625E5BC019EA3A43007A5124 /* qrcode.min.js */; };
-		625E5BC519EA3A6B007A5124 /* qrcode.htm in Resources */ = {isa = PBXBuildFile; fileRef = 625E5BC319EA3A6B007A5124 /* qrcode.htm */; };
 		627A6DF918B47E9300493BBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 627A6DF818B47E9300493BBC /* Cocoa.framework */; };
 		627A6E0318B47E9300493BBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 627A6E0118B47E9300493BBC /* InfoPlist.strings */; };
 		627A6E0518B47E9300493BBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 627A6E0418B47E9300493BBC /* main.m */; };
@@ -57,6 +53,8 @@
 		62E2E1991A5AB21E00C9A2E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E2E1981A5AB21E00C9A2E1 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		62E2E19B1A5AB23700C9A2E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E2E19A1A5AB23700C9A2E1 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		62E2E19D1A5ABE5C00C9A2E1 /* abp.js in Resources */ = {isa = PBXBuildFile; fileRef = 62E2E19C1A5ABE5C00C9A2E1 /* abp.js */; };
+		B6CFA21128A2BF0900F2C377 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CFA21228A2BF0900F2C377 /* CoreImage.framework */; };
+		B6CFA21328A2BF0900F2C377 /* ScreenCaptureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6CFA21428A2BF0900F2C377 /* ScreenCaptureKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B6CFA20F28A2BF0900F2C377 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA20D28A2BF0900F2C377 /* SettingsController.m */; };
 		B6CFA21028A2BF0900F2C377 /* SettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6CFA20E28A2BF0900F2C377 /* SettingsController.xib */; };
 		EB1897A04CF0382A754FE700 /* SWBConfigWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1895348E32ABA4F4F86742 /* SWBConfigWindowController.m */; };
@@ -291,9 +289,6 @@
 		625E5BB919EA350F007A5124 /* QRCodeWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeWindow.xib; sourceTree = "<group>"; };
 		625E5BBB19EA36D2007A5124 /* SWBQRCodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBQRCodeWindowController.h; sourceTree = "<group>"; };
 		625E5BBC19EA36D2007A5124 /* SWBQRCodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBQRCodeWindowController.m; sourceTree = "<group>"; };
-		625E5BBF19EA3A43007A5124 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
-		625E5BC019EA3A43007A5124 /* qrcode.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = qrcode.min.js; sourceTree = "<group>"; };
-		625E5BC319EA3A6B007A5124 /* qrcode.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = qrcode.htm; sourceTree = "<group>"; };
 		6274846D18B1FD5C00A9CDF0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		6274846F18B1FD6500A9CDF0 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		6274847118B1FD6F00A9CDF0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -311,7 +306,6 @@
 		627A6E0A18B47E9300493BBC /* SWBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWBAppDelegate.h; sourceTree = "<group>"; };
 		627A6E0B18B47E9300493BBC /* SWBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWBAppDelegate.m; sourceTree = "<group>"; };
 		627A6E1018B47E9300493BBC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		627A6E5618B4887000493BBC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		628693EA16DA26E2008B1A26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		628C3DE218AD5B100090632A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		628C3DE318AD5B700090632A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -336,6 +330,8 @@
 		B6CFA20C28A2BF0900F2C377 /* SettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		B6CFA20D28A2BF0900F2C377 /* SettingsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		B6CFA20E28A2BF0900F2C377 /* SettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsController.xib; sourceTree = "<group>"; };
+		B6CFA21228A2BF0900F2C377 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		B6CFA21428A2BF0900F2C377 /* ScreenCaptureKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenCaptureKit.framework; path = System/Library/Frameworks/ScreenCaptureKit.framework; sourceTree = SDKROOT; };
 		EB189071407B3A2A9B4C83CB /* ProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileManager.h; sourceTree = "<group>"; };
 		EB1891B68FCBD841C5E461B6 /* About.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = About.md; sourceTree = SOURCE_ROOT; };
 		EB1891FD08E70E9E9DC84AFD /* about.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about.txt; sourceTree = "<group>"; };
@@ -368,11 +364,12 @@
 				3AD6016C2018D56F00403182 /* AFNetworking.framework in Frameworks */,
 				3A09F8EB23101ADC0073E0EE /* libsodium.framework in Frameworks */,
 				3AD6016D2018D56F00403182 /* GCDWebServers.framework in Frameworks */,
+				B6CFA21128A2BF0900F2C377 /* CoreImage.framework in Frameworks */,
+				B6CFA21328A2BF0900F2C377 /* ScreenCaptureKit.framework in Frameworks */,
 				628C91C61A07B6C800BA1566 /* QuartzCore.framework in Frameworks */,
 				3A09F8E823101ADC0073E0EE /* libuv.framework in Frameworks */,
 				62E27E5E18C1D1000086033D /* libz.dylib in Frameworks */,
 				627A6DF918B47E9300493BBC /* Cocoa.framework in Frameworks */,
-				625E5BBE19EA3855007A5124 /* WebKit.framework in Frameworks */,
 				62E2E19B1A5AB23700C9A2E1 /* Security.framework in Frameworks */,
 				62E2E1991A5AB21E00C9A2E1 /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -483,8 +480,9 @@
 				629AC93D18B49B97001D2771 /* Security.framework */,
 				629AC93B18B49B69001D2771 /* AppKit.framework */,
 				629AC93918B49B56001D2771 /* Cocoa.framework */,
-				627A6E5618B4887000493BBC /* WebKit.framework */,
 				6274847318B1FD7900A9CDF0 /* ImageIO.framework */,
+				B6CFA21228A2BF0900F2C377 /* CoreImage.framework */,
+				B6CFA21428A2BF0900F2C377 /* ScreenCaptureKit.framework */,
 				6274847118B1FD6F00A9CDF0 /* QuartzCore.framework */,
 				6274846F18B1FD6500A9CDF0 /* CoreMedia.framework */,
 				6274846D18B1FD5C00A9CDF0 /* CoreVideo.framework */,
@@ -572,8 +570,6 @@
 		627A6DFF18B47E9300493BBC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				625E5BBF19EA3A43007A5124 /* jquery.min.js */,
-				625E5BC019EA3A43007A5124 /* qrcode.min.js */,
 				62E27E5318C1D03D0086033D /* proxy.pac.gz */,
 				622BE4E418B7307200F22683 /* menu_icon@2x.png */,
 				622BE4E518B7307200F22683 /* menu_icon.png */,
@@ -589,7 +585,6 @@
 				627A6E0718B47E9300493BBC /* Credits.rtf */,
 				620530BD18D44FB600887D3E /* install_helper.sh */,
 				625E5BB919EA350F007A5124 /* QRCodeWindow.xib */,
-				625E5BC319EA3A6B007A5124 /* qrcode.htm */,
 				62E2E19C1A5ABE5C00C9A2E1 /* abp.js */,
 			);
 			name = "Supporting Files";
@@ -837,9 +832,6 @@
 				3A4AAEB4201B2FB7002F23AF /* ConfigWindow.xib in Resources */,
 				620530BE18D44FB600887D3E /* install_helper.sh in Resources */,
 				6232047218C0719D001A30B9 /* menu_icon_disabled@2x.png in Resources */,
-				625E5BC119EA3A43007A5124 /* jquery.min.js in Resources */,
-				625E5BC519EA3A6B007A5124 /* qrcode.htm in Resources */,
-				625E5BC219EA3A43007A5124 /* qrcode.min.js in Resources */,
 				627A6E0318B47E9300493BBC /* InfoPlist.strings in Resources */,
 				62E27E5518C1D03D0086033D /* proxy.pac.gz in Resources */,
 				62E2E19D1A5ABE5C00C9A2E1 /* abp.js in Resources */,

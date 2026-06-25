@@ -47,6 +47,20 @@
 - Validation: static search confirmed four target-level ad-hoc signing identities.
 - Pending product validation: `codesign --verify --deep --strict ssrMac.app` requires a successful app build.
 
+### T10 native QR rendering
+
+- Replaced the QR window `WebView` outlet with an `NSImageView` and native `CIQRCodeGenerator` rendering.
+- Removed `qrcode.htm`, `jquery.min.js`, and `qrcode.min.js` from the project and filesystem.
+- Removed `WebKit.framework` from the project and linked `CoreImage.framework` explicitly.
+- Updated screen QR scanning to avoid full proxy URL logging; logs now include only display index, payload length, and success/failure context.
+- Replaced the unavailable `CGDisplayCreateImage` screen capture path with `SCScreenshotManager` on macOS 15.2+ and weak-linked `ScreenCaptureKit.framework`.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
+- Validation: `xmllint --noout ssrMac/QRCodeWindow.xib` passed.
+- Validation: focused Objective-C syntax check passed for `SWBQRCodeWindowController.m` and `qrCodeOnScreen.m` against the Xcode 26 SDK.
+- Validation: static search confirmed no remaining `WebView`, `WebKit`, old QR HTML/JS resource references, `CGDisplayCreateImage`, or full QR payload logging.
+- Validation: temporary executable test generated a `256x256` QR `NSImage` for a sample `ssr://` payload.
+- Pending environment validation: `ibtool` and full `xcodebuild` validation remain blocked until Xcode first launch/license acceptance is completed.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.
