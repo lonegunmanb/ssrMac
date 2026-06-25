@@ -1,0 +1,140 @@
+name: ARM64 Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner_label:
+        description: "macOS arm64 runner label"
+        required: true
+        default: "macos-15-xlarge"
+      configuration:
+        description: "Xcode build configuration"
+        required: true
+        default: "Release"
+
+jobs:
+  validate-arm64:
+    name: Validate arm64 build
+    runs-on: ${{ inputs.runner_label }}
+    timeout-minutes: 90
+
+    env:
+      CONFIGURATION: ${{ inputs.configuration }}
+      ARCH: arm64
+      DERIVED_DATA_PATH: ${{ github.workspace }}/build/DerivedData
+      PACKAGE_EXTERNAL_FRAMEWORKS: "NO"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show runner and Xcode environment
+        run: |
+          set -euo pipefail
+          uname -a
+          uname -m
+          sw_vers
+          xcode-select -p
+          xcodebuild -version
+
+      - name: Install Homebrew dependencies
+        run: |
+          set -euo pipefail
+          brew update
+          brew install libsodium libuv mbedtls openssl@3 automake autoconf libtool pkg-config cmake
+          brew --prefix
+          for formula in libsodium libuv mbedtls openssl@3 automake autoconf libtool pkg-config cmake; do
+            printf '%s=' "$formula"
+            brew --prefix "$formula"
+          done
+
+      - name: Verify Homebrew arm64 static libraries
+        run: |
+          set -euo pipefail
+          while read -r formula library_name; do
+            prefix="$(brew --prefix "$formula")"
+            binary_path="$prefix/lib/$library_name"
+            printf '%s/%s ' "$formula" "$library_name"
+            lipo -archs "$binary_path"
+          done <<'EOF'
+          libsodium libsodium.a
+          libuv libuv.a
+          mbedtls libmbedtls.a
+          mbedtls libmbedx509.a
+          mbedtls libmbedcrypto.a
+          openssl@3 libcrypto.a
+          EOF
+
+      - name: Validate support scripts
+        run: |
+          set -euo pipefail
+          bash -n build.sh scripts/package-arm64-frameworks.sh
+
+      - name: Validate optional external framework packaging
+        run: |
+          set -euo pipefail
+          output_dir="${RUNNER_TEMP}/ssrmac-external-frameworks"
+          rm -rf "$output_dir"
+          ./scripts/package-arm64-frameworks.sh "$output_dir"
+          for name in libuv libsodium mbedtls libcrypto; do
+            binary_path="$output_dir/$name.framework/Versions/A/$name"
+            test -f "$binary_path"
+            archs="$(lipo -archs "$binary_path")"
+            printf '%s %s\n' "$name" "$archs"
+            [[ " $archs " == *" arm64 "* ]]
+          done
+
+      - name: Build ssrMac arm64
+        run: |
+          set -euo pipefail
+          ./build.sh 2>&1 | tee "${RUNNER_TEMP}/ssrmac-build.log"
+
+      - name: Validate app binary, frameworks, and signature
+        run: |
+          set -euo pipefail
+          app_path="${DERIVED_DATA_PATH}/Build/Products/${CONFIGURATION}/ssrMac.app"
+          test -d "$app_path"
+
+          main_archs="$(lipo -archs "$app_path/Contents/MacOS/ssrMac")"
+          printf 'ssrMac %s\n' "$main_archs"
+          [[ " $main_archs " == *" arm64 "* ]]
+
+          expected_frameworks=(
+            ssrNative
+            libuv
+            libsodium
+            mbedtls
+            GCDWebServers
+            GZIP
+          )
+
+          for name in "${expected_frameworks[@]}"; do
+            binary_path="$app_path/Contents/Frameworks/$name.framework/Versions/A/$name"
+            test -f "$binary_path"
+            archs="$(lipo -archs "$binary_path")"
+            printf '%s %s\n' "$name" "$archs"
+            [[ " $archs " == *" arm64 "* ]]
+          done
+
+          if [[ -e "$app_path/Contents/Frameworks/AFNetworking.framework" ]]; then
+            echo "AFNetworking.framework should not be embedded after T15" >&2
+            exit 1
+          fi
+
+          codesign --verify --deep --strict "$app_path"
+          codesign -dv --verbose=4 "$app_path"
+          codesign -d --entitlements - "$app_path" > "${RUNNER_TEMP}/ssrmac-entitlements.plist"
+          grep -q 'com.apple.security.network.client' "${RUNNER_TEMP}/ssrmac-entitlements.plist"
+          grep -q 'com.apple.security.network.server' "${RUNNER_TEMP}/ssrmac-entitlements.plist"
+
+      - name: Upload validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssrmac-arm64-validation-${{ github.run_id }}
+          if-no-files-found: ignore
+          path: |
+            ${{ runner.temp }}/ssrmac-build.log
+            ${{ runner.temp }}/ssrmac-entitlements.plist
+            build/DerivedData/Build/Products/${{ inputs.configuration }}/ssrMac.app
+            build/DerivedData/Build/Products/${{ inputs.configuration }}/ssrMac.app.dSYM
