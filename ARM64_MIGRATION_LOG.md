@@ -32,6 +32,13 @@
 - Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
 - Validation: static search confirmed the main project file no longer contains `/usr/local`, `libuv.a`, `libsodium.a`, or `libcrypto.a` references.
 
+### T6 iOS configuration cleanup
+
+- Removed project-level iOS-only build settings: `iphoneos`, `IPHONEOS_DEPLOYMENT_TARGET`, `TARGETED_DEVICE_FAMILY`, `OpenSSL-for-iPhone`, `iPhone Developer`, and iPhoneOS provisioning-profile variants.
+- Set project-level Debug and Release `SDKROOT` to `macosx`.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
+- Validation: static search confirmed no remaining T6 iOS-only strings in the main project file.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.

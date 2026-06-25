@@ -39,7 +39,7 @@
 | T3 | 升级工程格式与部署目标 | 🔴 | T1 | done |
 | T4 | 设置 arm64 架构构建参数 | 🔴 | T3 | done |
 | T5 | 清理死引用与 Intel 路径假设 | 🔴 | T3 | done |
-| T6 | 清理 iOS 残留 configuration | 🔴 | T3 | pending |
+| T6 | 清理 iOS 残留 configuration | 🔴 | T3 | done |
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | pending |
@@ -147,7 +147,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - 工程内不再出现 `/usr/local/`。
   - 删除死引用后 Xcode 工程可正常解析、无悬空引用。
 
-### [ ] T6 · 清理 iOS 残留 configuration 🔴
+### [x] T6 · 清理 iOS 残留 configuration 🔴
 
 - **依赖**: T3
 - **背景**: PBXProject 级 Debug/Release 含 iOS 专属设置，对 macOS 构建无意义且易误导。
