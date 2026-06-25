@@ -44,7 +44,7 @@
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | done |
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | done |
 | T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | done |
-| T11 | 提权机制现代化 (SMAppService/XPC) | 🟢 | T4 | pending |
+| T11 | 提权机制决策：暂保留 setuid helper | 🟢 | T4 | done |
 | T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | done |
 | T13 | Hardened Runtime + 公证 | 🟢 | T12, T7, T8, T9, T10 | pending |
 | T14 | 全链路构建与运行验证 | 🔴 | T7, T8, T9, T10, T12 | pending |
@@ -224,19 +224,19 @@ T14 依赖 T7/T8/T9/T10/T12
   - 工程内不再引用 `WebView`、`WebKit.framework`、`qrcode.htm`、`jquery.min.js`。
   - 运行时二维码窗口能正确显示当前节点的 ssr 链接二维码。
 
-### [ ] T11 · 提权机制现代化 (SMAppService/XPC) 🟢
+### [x] T11 · 提权机制决策：暂保留 setuid helper 🟢
 
 - **依赖**: T4
-- **背景**: `ssr_mac_sysconf/main.m` 用已弃用的 `AuthorizationCreate`（L44）+ `SCPreferencesCreateWithAuthorization`（L66）提权，并通过 `install_helper.sh`（setuid `chmod +s`）安装到 `/Library/Application Support/ssrMac/`。该工具被当作 resource 打包（L838）。`SCPreferences*` 系统代理逻辑（main.m L65-L100）在 arm64 上仍可用，**仅需替换提权外壳**。
+- **背景**: `ssr_mac_sysconf/main.m` 用已弃用的 `AuthorizationCreate`（L44）+ `SCPreferencesCreateWithAuthorization`（L66）提权，并通过 `install_helper.sh`（setuid `chmod +s`）安装到 `/Library/Application Support/ssrMac/`。该工具被当作 resource 打包（L838）。评估后确认 `SMAppService` privileged LaunchDaemon 路线需要 Developer ID 签名与公证；自用、不分发阶段暂保留当前 setuid helper。
 - **涉及文件**: `ssr_mac_sysconf/main.m`、`ssrMac/install_helper.sh`、`ssrMac.xcodeproj/project.pbxproj`
 - **步骤**:
-  1. 将 setuid + `install_helper.sh` 模式迁移到 `SMAppService`（macOS 13+）或 `SMJobBless` + XPC helper。
-  2. 保留 `doSettingProxy` 中的 `SCPreferences*` 代理设置逻辑（L65-L100），仅替换其提权获取方式。
-  3. 更新打包/安装流程，移除 `chmod +s` 的 setuid 安装。
+  1. 评估 `SMAppService`（macOS 13+）/ XPC privileged helper 可行性。
+  2. 确认该路线需要 Developer ID 签名、公证和测试机管理员批准。
+  3. 自用验收阶段保留 setuid helper；未来若接受 Developer ID/公证成本，再拆新任务迁移。
 - **验收标准**:
-  - 不再依赖 setuid 二进制；helper 通过 `SMAppService`/`SMJobBless` 注册。
-  - 在 arm64（公证后）上切换 auto/global/off 代理均生效，退出后系统代理正确还原。
-- **备注**: 非「能跑」必需，但阻塞「公证后能正常提权」。可在 T13 之前完成。
+  - T11 不再阻塞自用 arm64 验收；当前 helper 继续通过 `install_helper.sh` 安装 setuid 二进制。
+  - `SMAppService` / XPC 迁移风险和签名/公证要求已记录在迁移日志中。
+- **备注**: 这是自用路线的阶段性决策，不代表 setuid helper 是长期 macOS 28/29 兼容方案。未来若要现代化 privileged helper，应在 Developer ID/公证就绪后新建任务。
 
 ---
 

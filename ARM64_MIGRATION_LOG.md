@@ -143,12 +143,12 @@
 - Workflow installs Homebrew dependencies, validates optional external framework packaging, runs `./build.sh`, verifies app/framework `arm64` slices, verifies `codesign --deep --strict`, checks hardened runtime entitlements, and uploads build logs plus the app artifact.
 - Runtime validation on the dedicated test machine is still pending: helper installation, node connectivity, PAC/global proxy switching, QR display, and proxy restoration on exit.
 
-### T11 privileged helper decision point
+### T11 privileged helper decision
 
-- User selected the `SMAppService` / XPC direction for helper modernization.
-- Xcode 26 `SMAppService` headers state that apps containing LaunchDaemons must be notarized.
-- This conflicts with a self-use plan that skips Developer ID / notarization; replacing the current setuid helper with an `SMAppService` privileged daemon needs Developer ID signing, notarization, and test-machine admin approval.
-- T11 remains pending until the distribution/signing requirement is accepted or the helper strategy is changed.
+- User selected self-use over distribution for the current migration phase and chose to keep the existing setuid helper for now.
+- Xcode 26 `SMAppService` headers state that apps containing LaunchDaemons must be notarized, so the modern privileged helper route requires Developer ID signing, notarization, and test-machine admin approval.
+- Current self-use builds continue to package `install_helper.sh` and `ssr_mac_sysconf`; helper installation remains part of T14 runtime validation.
+- This is not a long-term macOS 28/29 guarantee. If Developer ID/notarization becomes acceptable later, create a new task for `SMAppService` + XPC privileged helper migration.
 
 ### Working tree notes
 
