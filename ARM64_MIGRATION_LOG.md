@@ -61,6 +61,21 @@
 - Validation: temporary executable test generated a `256x256` QR `NSImage` for a sample `ssr://` payload.
 - Pending environment validation: `ibtool` and full `xcodebuild` validation remain blocked until Xcode first launch/license acceptance is completed.
 
+### T9 subproject dependency note
+
+- `AFNetworking`, `GCDWebServer`, and `GZIP` are checked out at detached HEADs with upstream public HTTPS remotes.
+- T9 changes should not be committed inside those submodules until a writable fork/remote strategy is chosen; otherwise the parent repository could point to submodule commits that other clones cannot fetch.
+
+### T16 build script rewrite
+
+- Replaced the stale `AppProxyCap` / `iphonesimulator` build script with a logged `xcodebuild` entry point for `ssrMac.xcodeproj`, scheme `ssrMac`, Release, and `arm64`.
+- Added an optional `scripts/package-arm64-frameworks.sh` hook so T8 dependency packaging can be wired in without changing the public build entry point again.
+- Updated Travis metadata from `iphonesimulator` to `macosx` and the `ssrMac` project/scheme.
+- Added `scripts/package-arm64-frameworks.sh`, which packages Homebrew `libuv`, `libsodium`, `mbedtls`, and `openssl@3` `libcrypto` static libraries as framework bundles.
+- Validation: `bash -n build.sh scripts/package-arm64-frameworks.sh` passed.
+- Validation: the packaging script produced `libuv.framework`, `libsodium.framework`, `mbedtls.framework`, and `libcrypto.framework` in a temporary output directory; `lipo -archs` confirmed `arm64` for all four binaries.
+- Pending environment validation: full `./build.sh` still requires Xcode first launch/license acceptance and the remaining dependent migration tasks.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.

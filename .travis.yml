@@ -1,3 +1,5 @@
 language: objective-c
-xcode_sdk: iphonesimulator
+xcode_project: ssrMac.xcodeproj
+xcode_scheme: ssrMac
+xcode_sdk: macosx
 script: ./build.sh

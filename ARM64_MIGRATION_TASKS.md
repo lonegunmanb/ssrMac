@@ -49,7 +49,7 @@
 | T13 | Hardened Runtime + 公证 | 🟢 | T12, T7, T8, T9, T10 | pending |
 | T14 | 全链路构建与运行验证 | 🔴 | T7, T8, T9, T10, T12 | pending |
 | T15 | AFNetworking → URLSession | 🟢 | T14 | pending |
-| T16 | 重写 build.sh / CI | 🟢 | T4 | pending |
+| T16 | 重写 build.sh / CI | 🟢 | T4 | done |
 
 ## 依赖关系图
 
@@ -301,7 +301,7 @@ T14 依赖 T7/T8/T9/T10/T12
   2. 移除 AFNetworking 子工程依赖与 framework 链接。
 - **验收标准**: 工程不再依赖 AFNetworking，相关网络功能回归测试通过。
 
-### [ ] T16 · 重写 build.sh / CI 🟢
+### [x] T16 · 重写 build.sh / CI 🟢
 
 - **依赖**: T4
 - **背景**: 现有 `build.sh` 已失效（`cd AppProxyCap/` 指向不存在目录，且用 `xcodebuild -sdk iphonesimulator`）；`.travis.yml` 同样指向 `iphonesimulator` 并调用该脚本。
