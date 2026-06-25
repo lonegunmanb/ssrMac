@@ -6,7 +6,7 @@ on:
       runner_label:
         description: "macOS arm64 runner label"
         required: true
-        default: "macos-15-xlarge"
+        default: "macos-26-xlarge"
       configuration:
         description: "Xcode build configuration"
         required: true

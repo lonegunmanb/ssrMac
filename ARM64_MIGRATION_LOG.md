@@ -139,7 +139,7 @@
 ### T14 GitHub Actions validation workflow
 
 - Added `.github/workflows/arm64-validation.yml` as a manual workflow for arm64 build validation on a macOS runner pool.
-- Default runner label is `macos-15-xlarge`; it can be overridden at dispatch time for a dedicated/self-hosted macOS arm64 pool.
+- Default runner label is `macos-26-xlarge`; it can be overridden at dispatch time for a dedicated/self-hosted macOS arm64 pool.
 - Workflow installs Homebrew dependencies, validates optional external framework packaging, runs `./build.sh`, verifies app/framework `arm64` slices, verifies `codesign --deep --strict`, checks hardened runtime entitlements, and uploads build logs plus the app artifact.
 - Runtime validation on the dedicated test machine is still pending: helper installation, node connectivity, PAC/global proxy switching, QR display, and proxy restoration on exit.
 
