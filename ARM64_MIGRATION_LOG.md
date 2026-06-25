@@ -143,6 +143,13 @@
 - Workflow installs Homebrew dependencies, validates optional external framework packaging, runs `./build.sh`, verifies app/framework `arm64` slices, verifies `codesign --deep --strict`, checks hardened runtime entitlements, and uploads build logs plus the app artifact.
 - Runtime validation on the dedicated test machine is still pending: helper installation, node connectivity, PAC/global proxy switching, QR display, and proxy restoration on exit.
 
+### T11 privileged helper decision point
+
+- User selected the `SMAppService` / XPC direction for helper modernization.
+- Xcode 26 `SMAppService` headers state that apps containing LaunchDaemons must be notarized.
+- This conflicts with a self-use plan that skips Developer ID / notarization; replacing the current setuid helper with an `SMAppService` privileged daemon needs Developer ID signing, notarization, and test-machine admin approval.
+- T11 remains pending until the distribution/signing requirement is accepted or the helper strategy is changed.
+
 ### Working tree notes
 
 - `AGENTS.md` has been committed to the parent repository as logging guidance.
