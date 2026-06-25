@@ -113,6 +113,18 @@
 - Validation: `lipo -archs` reported `arm64` for `ssrMac`, `ssrNative`, `libuv`, `libsodium`, `mbedtls`, `AFNetworking`, `GCDWebServers`, and `GZIP` in the built app bundle.
 - Validation: `codesign --verify --deep --strict build/DerivedData/Build/Products/Release/ssrMac.app` passed.
 
+### T13 hardened runtime preparation
+
+- Added `ssrMac/ssrMac.entitlements` with network client/server entitlements for the status-bar app and local PAC/proxy server behavior.
+- Enabled `ENABLE_HARDENED_RUNTIME = YES` for the app and helper targets.
+- Set `CODE_SIGN_ENTITLEMENTS = ssrMac/ssrMac.entitlements` for the app target Debug and Release configurations.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj ssrMac/ssrMac.entitlements` passed.
+- Validation: default `./build.sh` Release arm64 build succeeded with hardened runtime enabled.
+- Validation: `codesign --verify --deep --strict build/DerivedData/Build/Products/Release/ssrMac.app` passed.
+- Validation: `codesign -dv --verbose=4` reports `flags=0x10002(adhoc,runtime)` and `Runtime Version=26.5.0`.
+- Validation: embedded app entitlements include `com.apple.security.network.client` and `com.apple.security.network.server`.
+- Pending distribution validation: Developer ID signing, `DEVELOPMENT_TEAM`, `notarytool`, and stapling require Apple Developer credentials and are not completed.
+
 ### Working tree notes
 
 - `AGENTS.md` has been committed to the parent repository as logging guidance.

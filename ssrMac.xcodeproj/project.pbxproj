@@ -269,6 +269,7 @@
 		3ABFEC862534AC8100A12D18 /* net_port_is_free.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = net_port_is_free.c; sourceTree = "<group>"; };
 		3ACA8CC92019C17800839E41 /* ShadowsocksRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShadowsocksRunner.m; path = ShadowWeb/ShadowsocksRunner.m; sourceTree = SOURCE_ROOT; };
 		3ACA8CCA2019C17800839E41 /* ShadowsocksRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowsocksRunner.h; path = ShadowWeb/ShadowsocksRunner.h; sourceTree = SOURCE_ROOT; };
+		3AF2A0002E0D000000000001 /* ssrMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ssrMac.entitlements; sourceTree = "<group>"; };
 		3AD601372018D47700403182 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3AD601502018D50D00403182 /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = AFNetworking/AFNetworking.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3AD6016E2018D7C900403182 /* GZIP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GZIP.xcodeproj; path = GZIP/GZIP.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -579,6 +580,7 @@
 				3A4AAEB3201B2FB7002F23AF /* ConfigWindow.xib */,
 				B6CFA20E28A2BF0900F2C377 /* SettingsController.xib */,
 				627A6E0018B47E9300493BBC /* ssrMac-Info.plist */,
+				3AF2A0002E0D000000000001 /* ssrMac.entitlements */,
 				627A6E0118B47E9300493BBC /* InfoPlist.strings */,
 				627A6E0418B47E9300493BBC /* main.m */,
 				627A6E0618B47E9300493BBC /* ssrMac-Prefix.pch */,
@@ -956,6 +958,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ssr_mac_sysconf/ssr_mac_sysconf-Prefix.pch";
@@ -988,6 +991,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1108,9 +1112,11 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = ssrMac/ssrMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -1147,10 +1153,12 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = ssrMac/ssrMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
