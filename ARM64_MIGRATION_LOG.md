@@ -143,6 +143,16 @@
 - Workflow installs Homebrew dependencies, validates optional external framework packaging, runs `./build.sh`, verifies app/framework `arm64` slices, verifies `codesign --deep --strict`, checks hardened runtime entitlements, and uploads build logs plus the app artifact.
 - Runtime validation on the dedicated test machine is still pending: helper installation, node connectivity, PAC/global proxy switching, QR display, and proxy restoration on exit.
 
+### T14 SSR link E2E validation entry
+
+- Added an app E2E startup path driven by `--e2e-ssr-url-file` or `--e2e-ssr-url`. It imports the complete `ssr://` link through the production `ShadowsocksRunner openSSURL:` path, enables proxy mode, waits for the local SOCKS listen port, and writes a JSON result file without logging the SSR link contents.
+- Updated SSR URL import behavior so the newly imported profile becomes the current profile immediately; this makes both manual import and E2E import use the selected SSR node without an extra menu selection.
+- Added `scripts/e2e-youtube.sh` for VM/runtime validation. It accepts `SSR_LINK_FILE` or `SSR_LINK`, optionally installs the bundled helper with `sudo`, starts the app with the E2E arguments, reads the app result file, and verifies YouTube connectivity with `curl --socks5-hostname 127.0.0.1:<port>`.
+- Added `.e2e/` to `.gitignore`; real SSR links and runtime result logs should stay local and never be committed.
+- Validation: default `./build.sh` Release arm64 build succeeded after adding the E2E entry.
+- Validation: `zsh -n scripts/e2e-youtube.sh` passed.
+- Pending runtime validation: install Tart or use another Apple Silicon VM/test host, provide a real SSR link file, run `SSR_LINK_FILE=.e2e/ssr-link.txt scripts/e2e-youtube.sh`, and inspect `.e2e/results/` plus Console logs if the YouTube probe fails.
+
 ### T11 privileged helper decision
 
 - User selected self-use over distribution for the current migration phase and chose to keep the existing setuid helper for now.

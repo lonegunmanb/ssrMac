@@ -176,7 +176,9 @@ void ssr_stop(void) {
     config_release(config);
 
     Configuration *configuration = [ProfileManager configuration];
+    NSUInteger importedProfileIndex = configuration.profiles.count;
     [configuration.profiles addObject:profile];
+    configuration.current = (NSInteger)importedProfileIndex;
     [ProfileManager saveConfiguration:configuration];
     
     [ShadowsocksRunner reloadConfig];

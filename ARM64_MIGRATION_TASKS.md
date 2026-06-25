@@ -277,15 +277,18 @@ T14 依赖 T7/T8/T9/T10/T12
 
 - **依赖**: T7, T8, T9, T10, T12
 - **背景**: 验证「阻塞性三件套 + 部署目标」全部落地后 arm64 可构建可运行。
-- **涉及文件**: 无（验证为主）
+- **涉及文件**: `scripts/e2e-youtube.sh`（验证脚本），`.e2e/`（本地敏感输入与结果，已忽略）
 - **步骤**:
   1. `xcodebuild -project ssrMac.xcodeproj -scheme ssrMac -configuration Release -arch arm64` 构建成功。
   2. `lipo -archs ssrMac.app/Contents/MacOS/ssrMac` 确认含 arm64。
   3. 对每个内嵌 framework 跑 `lipo -info` 验证 slice。
-  4. 在 Apple Silicon 上原生启动，逐项验证：节点连接、PAC/全局代理切换（提权流程）、二维码显示、退出后系统代理正确还原。
+  4. 在 Apple Silicon/Tart VM 上原生启动，逐项验证：节点连接、PAC/全局代理切换（提权流程）、二维码显示、退出后系统代理正确还原。
+  5. E2E 连接验证优先使用完整 `ssr://` link：把 link 放入本地未入库文件（例如 `.e2e/ssr-link.txt`），执行 `SSR_LINK_FILE=.e2e/ssr-link.txt scripts/e2e-youtube.sh`，脚本会启动 app 的 E2E 入口、等待本地 SOCKS 端口、通过 `curl --socks5-hostname` 探测 `https://www.youtube.com/generate_204`。
 - **验收标准**:
   - 构建零错误；主二进制与所有内嵌 framework 均含 `arm64`。
   - 上述四项功能验证全部通过。
+  - YouTube E2E 探测返回 `200/204/3xx` 等有效状态；`.e2e/results/` 中保存 app ready 结果、curl 结果和日志。
+  - 日志不得记录 SSR link 原文、密码或完整敏感配置。
 
 ---
 

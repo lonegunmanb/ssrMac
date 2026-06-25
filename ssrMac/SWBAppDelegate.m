@@ -24,6 +24,11 @@
 #define kShadowsocksRunningModeKey @"ShadowsocksMode"
 #define kShadowsocksHelper @"/Library/Application Support/ssrMac/ssr_mac_sysconf"
 #define kSysconfVersion @"1.0.0"
+#define kE2ESSRURLArgument @"--e2e-ssr-url"
+#define kE2ESSRURLFileArgument @"--e2e-ssr-url-file"
+#define kE2EResultFileArgument @"--e2e-result-file"
+#define kE2ETimeoutArgument @"--e2e-timeout"
+#define kE2EProxyModeArgument @"--e2e-proxy-mode"
 
 @interface SWBAppDelegate () <SWBConfigWindowControllerDelegate>
 @property(nonatomic, assign) BOOL useProxy;
@@ -115,6 +120,7 @@ static SWBAppDelegate *appDelegate;
 
     [self monitorPAC:configPath];
     appDelegate = self;
+    [self performE2EStartupIfRequested];
     
     dispatch_queue_t proxy = dispatch_queue_create("proxy", NULL);
     dispatch_async(proxy, ^{
@@ -468,6 +474,137 @@ void onPACChange(
 - (void) initializeProxy {
     if (self.useProxy) {
         [self modifySystemProxySettings:YES port:self.workingListenPort];
+    }
+}
+
+- (NSString *)argumentValueForName:(NSString *)name {
+    NSArray<NSString *> *arguments = [[NSProcessInfo processInfo] arguments];
+    NSUInteger index = [arguments indexOfObject:name];
+    if (index == NSNotFound || index + 1 >= arguments.count) {
+        return nil;
+    }
+    NSString *value = arguments[index + 1];
+    if ([value hasPrefix:@"--"]) {
+        return nil;
+    }
+    return value;
+}
+
+- (void)performE2EStartupIfRequested {
+    NSString *inlineURL = [self argumentValueForName:kE2ESSRURLArgument];
+    NSString *urlFile = [self argumentValueForName:kE2ESSRURLFileArgument];
+    if (inlineURL.length == 0 && urlFile.length == 0) {
+        return;
+    }
+
+    NSString *resultFile = [self argumentValueForName:kE2EResultFileArgument];
+    if (resultFile.length == 0) {
+        resultFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"ssrmac-e2e-result.json"];
+    }
+
+    NSError *readError = nil;
+    NSString *ssrURLString = inlineURL;
+    NSString *source = @"argument";
+    if (ssrURLString.length == 0) {
+        source = @"file";
+        ssrURLString = [NSString stringWithContentsOfFile:urlFile encoding:NSUTF8StringEncoding error:&readError];
+    }
+
+    if (readError || ssrURLString.length == 0) {
+        NSLog(@"E2E startup failed while loading SSR link from %@: %@", source, readError);
+        [self finishE2EWithStatus:@"failed" message:@"failed to load SSR link" resultFile:resultFile terminate:YES];
+        return;
+    }
+
+    ssrURLString = [ssrURLString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"E2E startup requested; SSR link source: %@; payload length: %lu; result file: %@", source, (unsigned long)ssrURLString.length, resultFile);
+
+    NSURL *ssrURL = [NSURL URLWithString:ssrURLString];
+    if (![[ssrURL.scheme lowercaseString] isEqualToString:@"ssr"]) {
+        NSLog(@"E2E startup rejected non-SSR URL; scheme: %@", ssrURL.scheme ?: @"<none>");
+        [self finishE2EWithStatus:@"failed" message:@"invalid SSR URL scheme" resultFile:resultFile terminate:YES];
+        return;
+    }
+
+    BOOL imported = [ShadowsocksRunner openSSURL:ssrURL];
+    if (!imported) {
+        NSLog(@"E2E startup failed to import SSR link; payload length: %lu", (unsigned long)ssrURLString.length);
+        [self finishE2EWithStatus:@"failed" message:@"failed to import SSR link" resultFile:resultFile terminate:YES];
+        return;
+    }
+
+    NSString *proxyMode = [self argumentValueForName:kE2EProxyModeArgument] ?: @"global";
+    if (!([proxyMode isEqualToString:@"global"] || [proxyMode isEqualToString:@"auto"])) {
+        NSLog(@"E2E startup received unsupported proxy mode '%@'; falling back to global", proxyMode);
+        proxyMode = @"global";
+    }
+    self.runningMode = proxyMode;
+    self.useProxy = YES;
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self updateMenu];
+
+    NSTimeInterval timeout = 60.0;
+    NSString *timeoutString = [self argumentValueForName:kE2ETimeoutArgument];
+    if (timeoutString.doubleValue > 0) {
+        timeout = timeoutString.doubleValue;
+    }
+
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:timeout];
+    NSLog(@"E2E startup imported SSR link and enabled proxy; mode: %@; timeout: %.0fs", proxyMode, timeout);
+    [self waitForE2EListenPortUntil:deadline resultFile:resultFile];
+}
+
+- (void)waitForE2EListenPortUntil:(NSDate *)deadline resultFile:(NSString *)resultFile {
+    if (self.workingListenPort > 0) {
+        NSString *message = [NSString stringWithFormat:@"proxy ready on port %ld", (long)self.workingListenPort];
+        [self finishE2EWithStatus:@"ready" message:message resultFile:resultFile terminate:NO];
+        return;
+    }
+
+    if ([[NSDate date] compare:deadline] != NSOrderedAscending) {
+        NSLog(@"E2E startup timed out waiting for local proxy listen port");
+        [self finishE2EWithStatus:@"failed" message:@"timed out waiting for local proxy port" resultFile:resultFile terminate:YES];
+        return;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self waitForE2EListenPortUntil:deadline resultFile:resultFile];
+    });
+}
+
+- (void)finishE2EWithStatus:(NSString *)status message:(NSString *)message resultFile:(NSString *)resultFile terminate:(BOOL)terminate {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    result[@"status"] = status ?: @"unknown";
+    result[@"message"] = message ?: @"";
+    result[@"listenPort"] = @(self.workingListenPort);
+    result[@"pid"] = @([[NSProcessInfo processInfo] processIdentifier]);
+    result[@"timestamp"] = [[NSDate date] descriptionWithLocale:nil];
+
+    NSError *directoryError = nil;
+    NSString *directory = [resultFile stringByDeletingLastPathComponent];
+    if (directory.length > 0) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:&directoryError];
+    }
+    if (directoryError) {
+        NSLog(@"E2E failed to create result directory %@: %@", directory, directoryError);
+    }
+
+    NSError *jsonError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonData) {
+        NSError *writeError = nil;
+        [jsonData writeToFile:resultFile options:NSDataWritingAtomic error:&writeError];
+        if (writeError) {
+            NSLog(@"E2E failed to write result file %@: %@", resultFile, writeError);
+        } else {
+            NSLog(@"E2E wrote result file %@ with status %@", resultFile, status);
+        }
+    } else {
+        NSLog(@"E2E failed to serialize result JSON: %@", jsonError);
+    }
+
+    if (terminate) {
+        [[NSApplication sharedApplication] terminate:nil];
     }
 }
 
