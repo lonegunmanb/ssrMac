@@ -45,7 +45,7 @@
 | T9 | 子工程依赖 arm64 化 | 🔴 | T4 | pending |
 | T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | pending |
 | T11 | 提权机制现代化 (SMAppService/XPC) | 🟢 | T4 | pending |
-| T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | pending |
+| T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | done |
 | T13 | Hardened Runtime + 公证 | 🟢 | T12, T7, T8, T9, T10 | pending |
 | T14 | 全链路构建与运行验证 | 🔴 | T7, T8, T9, T10, T12 | pending |
 | T15 | AFNetworking → URLSession | 🟢 | T14 | pending |
@@ -244,7 +244,7 @@ T14 依赖 T7/T8/T9/T10/T12
 
 > 当前全工程 `CODE_SIGN_IDENTITY = ""`（L970、L999、L1132、L1169）、`CODE_SIGN_STYLE = Automatic`、`DEVELOPMENT_TEAM = ""`；不存在 `ENABLE_HARDENED_RUNTIME`、`CODE_SIGN_ENTITLEMENTS` 或任何 `.entitlements`。各 framework 的 CopyFiles 已设 `CodeSignOnCopy`（如 L23），方向正确。
 
-### [ ] T12 · 启用代码签名（最低 ad-hoc）🔴
+### [x] T12 · 启用代码签名（最低 ad-hoc）🔴
 
 - **依赖**: T4
 - **背景**: Apple Silicon 强制所有可执行代码必须签名（哪怕 ad-hoc）。Intel 上未签名可跑，arm64 上不行。

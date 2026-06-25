@@ -39,6 +39,14 @@
 - Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
 - Validation: static search confirmed no remaining T6 iOS-only strings in the main project file.
 
+### T12 ad-hoc signing
+
+- Set `CODE_SIGN_IDENTITY = "-"` for Debug and Release on `ssrMac` and `ssr_mac_sysconf`.
+- Kept existing framework `CodeSignOnCopy` settings unchanged.
+- Validation: `plutil -lint ssrMac.xcodeproj/project.pbxproj` passed.
+- Validation: static search confirmed four target-level ad-hoc signing identities.
+- Pending product validation: `codesign --verify --deep --strict ssrMac.app` requires a successful app build.
+
 ### Working tree notes
 
 - `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.
