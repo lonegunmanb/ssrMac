@@ -15,7 +15,6 @@
 #import <GCDWebServers/GCDWebServerDataResponse.h>
 #import "ShadowsocksRunner.h"
 #import "ProfileManager.h"
-#import <AFNetworking/AFNetworking.h>
 #import "qrCodeOnScreen.h"
 #include <ssrNative/ssrNative.h>
 #include "net_port_is_free.h"
@@ -46,7 +45,6 @@
     NSString *configPath;
     NSString *PACPath;
     NSString *userRulePath;
-    AFHTTPSessionManager *manager;
     GCDWebServer *_webServer;
 }
 
@@ -61,9 +59,6 @@ static SWBAppDelegate *appDelegate;
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"proxy" withExtension:@"pac.gz"];
     originalPACData = [[NSData dataWithContentsOfURL:url] gunzippedData];
     
-    manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
     self.item = [[NSStatusBar systemStatusBar] statusItemWithLength:20];
     NSImage *image = [NSImage imageNamed:@"menu_icon"];
     [image setTemplate:YES];
@@ -590,13 +585,35 @@ void onPACChange(
 
 - (void)updatePACFromGFWList {
     NSString *gfwList = @"https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt";
-    [manager GET:gfwList parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        // Objective-C is bullshit
-        NSData *data = responseObject;
+    NSURL *url = [NSURL URLWithString:gfwList];
+    NSLog(@"Updating PAC from GFWList: %@", gfwList);
+
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"Failed to update PAC from GFWList: %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert *alert = [NSAlert alertWithError:error];
+                [alert runModal];
+            });
+            return;
+        }
+
+        NSHTTPURLResponse *httpResponse = [response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)response : nil;
+        if (httpResponse && (httpResponse.statusCode < 200 || httpResponse.statusCode >= 300)) {
+            NSLog(@"Failed to update PAC from GFWList: HTTP status %ld", (long)httpResponse.statusCode);
+            NSError *statusError = [NSError errorWithDomain:@"ssrMac.GFWList" code:httpResponse.statusCode userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"GFWList returned HTTP status %ld", (long)httpResponse.statusCode]}];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert *alert = [NSAlert alertWithError:statusError];
+                [alert runModal];
+            });
+            return;
+        }
+
+        NSLog(@"Downloaded GFWList payload; bytes: %lu", (unsigned long)data.length);
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSData *data2 = [[NSData alloc] initWithBase64Encoding:str];
         if (!data2) {
-            NSLog(@"can't decode base64 string");
+            NSLog(@"Failed to decode GFWList base64 payload; bytes: %lu", (unsigned long)data.length);
             return;
         }
         // Objective-C is bullshit
@@ -620,21 +637,22 @@ void onPACChange(
             }
         }
         // Objective-C is bullshit
-        NSError *error = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:filtered options:NSJSONWritingPrettyPrinted error:&error];
+        NSError *jsonError = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:filtered options:NSJSONWritingPrettyPrinted error:&jsonError];
         NSString *rules = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData *data3 = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"abp" withExtension:@"js"]];
         NSString *template = [[NSString alloc] initWithData:data3 encoding:NSUTF8StringEncoding];
         NSString *result = [template stringByReplacingOccurrencesOfString:@"__RULES__" withString:rules];
         [[result dataUsingEncoding:NSUTF8StringEncoding] writeToFile:self->PACPath atomically:YES];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = @"Updated";
-        [alert runModal];
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        NSAlert *alert = [NSAlert alertWithError:error];
-        [alert runModal];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSAlert *alert = [[NSAlert alloc] init];
+            alert.messageText = @"Updated";
+            [alert runModal];
+        });
     }];
+
+    [task resume];
 }
 
 - (void)handleURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {

@@ -125,6 +125,17 @@
 - Validation: embedded app entitlements include `com.apple.security.network.client` and `com.apple.security.network.server`.
 - Pending distribution validation: Developer ID signing, `DEVELOPMENT_TEAM`, `notarytool`, and stapling require Apple Developer credentials and are not completed.
 
+### T15 AFNetworking removal
+
+- Replaced the single GFWList download path in `SWBAppDelegate` with `NSURLSession`.
+- Removed AFNetworking from the app target link/copy phases, target dependencies, project references, and runpath search paths.
+- Removed the vendored `AFNetworking` source tree from the parent repository.
+- Validation: focused Objective-C syntax check passed for `SWBAppDelegate.m` after the `NSURLSession` migration.
+- Validation: static search confirmed no remaining app/project references to `AFNetworking`, `AFHTTPSessionManager`, or `AFHTTPResponseSerializer`.
+- Validation: default `./build.sh` Release arm64 build succeeded without AFNetworking.
+- Validation: built app bundle contains no `AFNetworking.framework`; `lipo -archs` reports `arm64` for `ssrMac`, `ssrNative`, `libuv`, `libsodium`, `mbedtls`, `GCDWebServers`, and `GZIP`.
+- Validation: `codesign --verify --deep --strict build/DerivedData/Build/Products/Release/ssrMac.app` passed.
+
 ### Working tree notes
 
 - `AGENTS.md` has been committed to the parent repository as logging guidance.

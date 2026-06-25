@@ -16,14 +16,12 @@
 		3A1A998D2022FFF000889D2E /* KSPasswordField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A997A2022FFF000889D2E /* KSPasswordField.m */; };
 		3A40B2D12019E0BC00F33F80 /* qrCodeOnScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A40B2D02019E0BC00F33F80 /* qrCodeOnScreen.m */; };
 		3A4AAEB4201B2FB7002F23AF /* ConfigWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A4AAEB3201B2FB7002F23AF /* ConfigWindow.xib */; };
-		3A8E4A5420219874002E2FBA /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AD6015F2018D50D00403182 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A8E4A572021993D002E2FBA /* GZIP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AD601792018D7C900403182 /* GZIP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A8E4A5C2021993D002E2FBA /* GCDWebServers.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AD601492018D47800403182 /* GCDWebServers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A95CC452070EBCB00E507E3 /* ssrNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A95CC322070EB0B00E507E3 /* ssrNative.framework */; };
 		3A95CC462070EBCB00E507E3 /* ssrNative.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A95CC322070EB0B00E507E3 /* ssrNative.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3ABFEC872534AC8100A12D18 /* net_port_is_free.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ABFEC862534AC8100A12D18 /* net_port_is_free.c */; };
 		3ACA8CCB2019C17800839E41 /* ShadowsocksRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA8CC92019C17800839E41 /* ShadowsocksRunner.m */; };
-		3AD6016C2018D56F00403182 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD6015F2018D50D00403182 /* AFNetworking.framework */; };
 		3AD6016D2018D56F00403182 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD601492018D47800403182 /* GCDWebServers.framework */; };
 		3AD601822018D7F200403182 /* GZIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD601792018D7C900403182 /* GZIP.framework */; };
 		6205309618D4443E00887D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621571AA16CF6BCB003D96B4 /* Foundation.framework */; };
@@ -140,62 +138,6 @@
 			remoteGlobalIDString = E24039251BA09207000B7089;
 			remoteInfo = "Tests (Mac)";
 		};
-		3AD6015A2018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522391BBF104D00859F49;
-			remoteInfo = "AFNetworking iOS";
-		};
-		3AD6015C2018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522651BBF129200859F49;
-			remoteInfo = "AFNetworking watchOS";
-		};
-		3AD6015E2018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522771BBF136400859F49;
-			remoteInfo = "AFNetworking macOS";
-		};
-		3AD601602018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2987B0A51BC408A200179A4C;
-			remoteInfo = "AFNetworking tvOS";
-		};
-		3AD601622018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 298D7C3B1BC2C79500FD3B3E;
-			remoteInfo = "AFNetworking iOS Tests";
-		};
-		3AD601642018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 298D7C4A1BC2C7B200FD3B3E;
-			remoteInfo = "AFNetworking macOS Tests";
-		};
-		3AD601662018D50D00403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2987B0AE1BC408A200179A4C;
-			remoteInfo = "AFNetworking tvOS Tests";
-		};
-		3AD601682018D54500403182 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 299522761BBF136400859F49;
-			remoteInfo = "AFNetworking macOS";
-		};
 		3AD6016A2018D54500403182 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3AD601372018D47700403182 /* GCDWebServer.xcodeproj */;
@@ -242,7 +184,6 @@
 			files = (
 				3A8E4A572021993D002E2FBA /* GZIP.framework in CopyFiles */,
 				3A95CC462070EBCB00E507E3 /* ssrNative.framework in CopyFiles */,
-				3A8E4A5420219874002E2FBA /* AFNetworking.framework in CopyFiles */,
 				3A09F8EC23101ADC0073E0EE /* libsodium.framework in CopyFiles */,
 				3A09F8EF23101ADD0073E0EE /* mbedtls.framework in CopyFiles */,
 				3A09F8E923101ADC0073E0EE /* libuv.framework in CopyFiles */,
@@ -271,7 +212,6 @@
 		3ACA8CCA2019C17800839E41 /* ShadowsocksRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowsocksRunner.h; path = ShadowWeb/ShadowsocksRunner.h; sourceTree = SOURCE_ROOT; };
 		3AF2A0002E0D000000000001 /* ssrMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ssrMac.entitlements; sourceTree = "<group>"; };
 		3AD601372018D47700403182 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
-		3AD601502018D50D00403182 /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = AFNetworking/AFNetworking.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3AD6016E2018D7C900403182 /* GZIP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GZIP.xcodeproj; path = GZIP/GZIP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		6205309518D4443E00887D3E /* ssr_mac_sysconf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ssr_mac_sysconf; sourceTree = BUILT_PRODUCTS_DIR; };
 		6205309818D4443E00887D3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -362,7 +302,6 @@
 				3A95CC452070EBCB00E507E3 /* ssrNative.framework in Frameworks */,
 				3AD601822018D7F200403182 /* GZIP.framework in Frameworks */,
 				3A09F8EE23101ADD0073E0EE /* mbedtls.framework in Frameworks */,
-				3AD6016C2018D56F00403182 /* AFNetworking.framework in Frameworks */,
 				3A09F8EB23101ADC0073E0EE /* libsodium.framework in Frameworks */,
 				3AD6016D2018D56F00403182 /* GCDWebServers.framework in Frameworks */,
 				B6CFA21128A2BF0900F2C377 /* CoreImage.framework in Frameworks */,
@@ -398,20 +337,6 @@
 				3AD6014B2018D47800403182 /* GCDWebServers.framework */,
 				3AD6014D2018D47800403182 /* GCDWebServers.framework */,
 				3AD6014F2018D47800403182 /* Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		3AD601512018D50D00403182 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3AD6015B2018D50D00403182 /* AFNetworking.framework */,
-				3AD6015D2018D50D00403182 /* AFNetworking.framework */,
-				3AD6015F2018D50D00403182 /* AFNetworking.framework */,
-				3AD601612018D50D00403182 /* AFNetworking.framework */,
-				3AD601632018D50D00403182 /* AFNetworking iOS Tests.xctest */,
-				3AD601652018D50D00403182 /* AFNetworking macOS Tests.xctest */,
-				3AD601672018D50D00403182 /* AFNetworking tvOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,7 +461,6 @@
 			children = (
 				3A95CC272070EB0A00E507E3 /* ssrNative.xcodeproj */,
 				3AD6016E2018D7C900403182 /* GZIP.xcodeproj */,
-				3AD601502018D50D00403182 /* AFNetworking.xcodeproj */,
 				3AD601372018D47700403182 /* GCDWebServer.xcodeproj */,
 				627A6E0A18B47E9300493BBC /* SWBAppDelegate.h */,
 				627A6E0B18B47E9300493BBC /* SWBAppDelegate.m */,
@@ -625,7 +549,6 @@
 			dependencies = (
 				3A95CC342070EB3B00E507E3 /* PBXTargetDependency */,
 				3AD601812018D7E100403182 /* PBXTargetDependency */,
-				3AD601692018D54500403182 /* PBXTargetDependency */,
 				3AD6016B2018D54500403182 /* PBXTargetDependency */,
 				620530BC18D44A4000887D3E /* PBXTargetDependency */,
 				3A95CC482070EBCB00E507E3 /* PBXTargetDependency */,
@@ -666,10 +589,6 @@
 			productRefGroup = 621571A616CF6BCB003D96B4 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = 3AD601512018D50D00403182 /* Products */;
-					ProjectRef = 3AD601502018D50D00403182 /* AFNetworking.xcodeproj */;
-				},
 				{
 					ProductGroup = 3AD601382018D47700403182 /* Products */;
 					ProjectRef = 3AD601372018D47700403182 /* GCDWebServer.xcodeproj */;
@@ -755,55 +674,6 @@
 			remoteRef = 3AD6014E2018D47800403182 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3AD6015B2018D50D00403182 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = 3AD6015A2018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD6015D2018D50D00403182 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = 3AD6015C2018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD6015F2018D50D00403182 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = 3AD6015E2018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD601612018D50D00403182 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = 3AD601602018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD601632018D50D00403182 /* AFNetworking iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking iOS Tests.xctest";
-			remoteRef = 3AD601622018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD601652018D50D00403182 /* AFNetworking macOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking macOS Tests.xctest";
-			remoteRef = 3AD601642018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3AD601672018D50D00403182 /* AFNetworking tvOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking tvOS Tests.xctest";
-			remoteRef = 3AD601662018D50D00403182 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		3AD601792018D7C900403182 /* GZIP.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -887,11 +757,6 @@
 			isa = PBXTargetDependency;
 			name = "ssrNative macOS";
 			targetProxy = 3A95CC472070EBCB00E507E3 /* PBXContainerItemProxy */;
-		};
-		3AD601692018D54500403182 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "AFNetworking macOS";
-			targetProxy = 3AD601682018D54500403182 /* PBXContainerItemProxy */;
 		};
 		3AD6016B2018D54500403182 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1131,7 +996,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_FILE = "ssrMac/ssrMac-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/AFNetworking.framework/Versions/Current @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
 				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				OTHER_LDFLAGS = "-w";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1174,7 +1039,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_FILE = "ssrMac/ssrMac-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/AFNetworking.framework/Versions/Current @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Frameworks/GCDWebServers.framework/Versions/Current @executable_path/../Frameworks/GZIP.framework/Versions/Current";
 				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				OTHER_LDFLAGS = "-w";
 				ONLY_ACTIVE_ARCH = NO;

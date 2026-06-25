@@ -48,7 +48,7 @@
 | T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | done |
 | T13 | Hardened Runtime + 公证 | 🟢 | T12, T7, T8, T9, T10 | pending |
 | T14 | 全链路构建与运行验证 | 🔴 | T7, T8, T9, T10, T12 | pending |
-| T15 | AFNetworking → URLSession | 🟢 | T14 | pending |
+| T15 | AFNetworking → URLSession | 🟢 | T14 | done |
 | T16 | 重写 build.sh / CI | 🟢 | T4 | done |
 
 ## 依赖关系图
@@ -291,7 +291,7 @@ T14 依赖 T7/T8/T9/T10/T12
 
 ## 阶段 6 — 长期增强（可选）
 
-### [ ] T15 · AFNetworking → URLSession 🟢
+### [x] T15 · AFNetworking → URLSession 🟢
 
 - **依赖**: T14
 - **背景**: AFNetworking 已归档（4.x 仍支持 arm64，故非阻塞）。长期可维护性建议迁移到原生 `URLSession`，最终可移除该子模块依赖。
