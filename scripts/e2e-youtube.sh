@@ -89,8 +89,15 @@ if [[ "$status" != "ready" ]]; then
 fi
 
 curl_log="$RESULT_DIR/curl-youtube.log"
+proxy_url="socks5h://127.0.0.1:$listen_port"
+export HTTPS_PROXY="$proxy_url"
+export HTTP_PROXY="$proxy_url"
+export http_proxy="$proxy_url"
+export ALL_PROXY="$proxy_url"
+export all_proxy="$proxy_url"
+log "running YouTube probe with curl proxy environment set to local SOCKS5 port $listen_port"
+
 http_code=$(curl \
-    --socks5-hostname "127.0.0.1:$listen_port" \
     --connect-timeout 15 \
     --max-time 45 \
     --location \
