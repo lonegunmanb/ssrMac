@@ -95,5 +95,5 @@
 
 ### Working tree notes
 
-- `shadowsocksr-native` was already dirty before migration edits due to dirty nested submodules: `depends/cstl`, `depends/http-parser`, and `depends/libbloom`.
-- `AGENTS.md` is present but untracked and was not included in migration task commits.
+- `AGENTS.md` has been committed to the parent repository as logging guidance.
+- Restored `shadowsocksr-native` nested submodule checkouts for `depends/cstl`, `depends/http-parser`, and `depends/libbloom` with `git submodule update --init --force`; recursive submodule status is clean again.
