@@ -74,6 +74,15 @@
 - `AFNetworking`, `GCDWebServer`, and `GZIP` are checked out at detached HEADs with upstream public HTTPS remotes.
 - T9 changes should not be committed inside those submodules until a writable fork/remote strategy is chosen; otherwise the parent repository could point to submodule commits that other clones cannot fetch.
 
+### T9 vendored dependency projects
+
+- Converted `AFNetworking`, `GCDWebServer`, and `GZIP` from submodules into vendored source directories in the parent repository; `.gitmodules` now only tracks `shadowsocksr-native`.
+- Updated the macOS framework targets for `AFNetworking macOS`, `GCDWebServers (Mac)`, and `GZIP` to `MACOSX_DEPLOYMENT_TARGET = 11.0`, `ARCHS = "$(ARCHS_STANDARD)"`, Debug `ONLY_ACTIVE_ARCH = YES`, and Release `ONLY_ACTIVE_ARCH = NO`.
+- Removed private `netinet6/in6.h` imports from AFNetworking reachability/session sources; Xcode 26 treats that header as private outside its module.
+- Validation: vendored subproject `.pbxproj` files pass `plutil -lint`.
+- Validation: `xcodebuild -showBuildSettings` for the three macOS schemes reports `ARCHS = arm64 x86_64`, `MACOSX_DEPLOYMENT_TARGET = 11.0`, and Release `ONLY_ACTIVE_ARCH = NO`.
+- Validation: Release arm64 builds succeeded for `AFNetworking.framework`, `GCDWebServers.framework`, and `GZIP.framework`; `lipo -archs` reported `arm64` for all three framework binaries.
+
 ### T16 build script rewrite
 
 - Replaced the stale `AppProxyCap` / `iphonesimulator` build script with a logged `xcodebuild` entry point for `ssrMac.xcodeproj`, scheme `ssrMac`, Release, and `arm64`.

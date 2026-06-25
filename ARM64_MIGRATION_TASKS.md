@@ -42,7 +42,7 @@
 | T6 | 清理 iOS 残留 configuration | 🔴 | T3 | done |
 | T7 | 重编 ssrNative.framework (arm64) | 🔴 | T2, T4 | pending |
 | T8 | 产出 4 个 C 库 arm64 framework | 🔴 | T2, T4 | pending |
-| T9 | 子工程依赖 arm64 化 | 🔴 | T4 | pending |
+| T9 | 子工程依赖 arm64 化 | 🔴 | T4 | done |
 | T10 | WebView → 原生二维码 (CIQRCodeGenerator) | 🔴 | T3 | done |
 | T11 | 提权机制现代化 (SMAppService/XPC) | 🟢 | T4 | pending |
 | T12 | 启用代码签名（最低 ad-hoc） | 🔴 | T4 | done |
@@ -193,7 +193,7 @@ T14 依赖 T7/T8/T9/T10/T12
   - 4 个 framework 的二进制 `lipo -archs` 均含 `arm64`。
   - 主工程链接阶段对这 4 个库无 "undefined symbols for arm64"。
 
-### [ ] T9 · 子工程依赖 arm64 化 🔴
+### [x] T9 · 子工程依赖 arm64 化 🔴
 
 - **依赖**: T4
 - **背景**: `GCDWebServer`、`GZIP`、`AFNetworking` 作为子工程依赖随主工程一起编（`PBXTargetDependency` "AFNetworking macOS" L906、"GCDWebServers (Mac)" L911、"GZIP-macOS" L916 区域；projectReferences L678-L695）。
