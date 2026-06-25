@@ -1,5 +1,6 @@
 build
 .e2e/
+secrets
 .idea/
 ssrMac.xcodeproj/project.xcworkspace/
 ssrMac.xcodeproj/xcuserdata/
