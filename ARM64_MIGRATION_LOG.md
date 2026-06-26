@@ -159,6 +159,9 @@
 - The first VM E2E launch installed `/Library/Application Support/ssrMac/ssr_mac_sysconf` successfully (`setuid root:admin`, version `1.0.0`) but app startup failed before writing the E2E result.
 - Direct VM launch showed dyld rejecting `ssrNative.framework` with Hardened Runtime library validation: `mapping process and mapped file (non-platform) have different Team IDs`.
 - Added `com.apple.security.cs.disable-library-validation` to `ssrMac/ssrMac.entitlements` so the self-use ad-hoc signed app can load its bundled frameworks under Hardened Runtime. This is needed for the current ad-hoc/self-use validation path; Developer ID distribution should revisit entitlements before notarization.
+- Validation: rebuilt Release arm64 app passed `plutil`, `./build.sh`, and signed entitlement checks; `codesign -d --entitlements -` includes `com.apple.security.cs.disable-library-validation`.
+- Validation: deployed rebuilt app plus `scripts/e2e-youtube.sh` and local ignored `secrets` file to the Parallels VM. The E2E script installed the setuid helper, started the app directly via `Contents/MacOS/ssrMac`, imported the SSR link from file without logging it, reported `status=ready` on local SOCKS port `49164`, and `curl` through `socks5h://127.0.0.1:49164` returned HTTP `204` from `https://www.youtube.com/generate_204`.
+- Validation: app termination restored VM system proxy settings; final `scutil --proxy` showed `HTTPEnable=0`, `HTTPSEnable=0`, `ProxyAutoConfigEnable=0`, and `SOCKSEnable=0`. E2E artifacts are archived locally under ignored `.e2e/results/parallels-macos-26/`.
 
 ### T11 privileged helper decision
 
