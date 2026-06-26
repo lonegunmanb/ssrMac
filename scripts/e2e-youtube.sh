@@ -52,6 +52,11 @@ fi
 
 log "starting ssrMac E2E run; app=$APP_PATH result=$APP_RESULT_FILE test_url=$TEST_URL"
 
+APP_EXECUTABLE="$APP_PATH/Contents/MacOS/ssrMac"
+if [[ ! -x "$APP_EXECUTABLE" ]]; then
+    fail "app executable not found: $APP_EXECUTABLE"
+fi
+
 HELPER_SCRIPT="$APP_PATH/Contents/Resources/install_helper.sh"
 HELPER_PATH="/Library/Application Support/ssrMac/ssr_mac_sysconf"
 if [[ "${SKIP_HELPER_INSTALL:-NO}" != "YES" ]]; then
@@ -64,11 +69,14 @@ if [[ "${SKIP_HELPER_INSTALL:-NO}" != "YES" ]]; then
 fi
 
 rm -f "$APP_RESULT_FILE"
-open -n "$APP_PATH" --args \
+"$APP_EXECUTABLE" \
     --e2e-ssr-url-file "$SSR_LINK_FILE_FOR_APP" \
     --e2e-result-file "$APP_RESULT_FILE" \
     --e2e-timeout "$E2E_TIMEOUT" \
-    --e2e-proxy-mode "$PROXY_MODE"
+    --e2e-proxy-mode "$PROXY_MODE" \
+    > "$RESULT_DIR/app-run.log" 2>&1 &
+APP_PID=$!
+log "started ssrMac process pid=$APP_PID"
 
 deadline=$((SECONDS + E2E_TIMEOUT + 10))
 while [[ ! -f "$APP_RESULT_FILE" ]]; do

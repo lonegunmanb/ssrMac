@@ -153,6 +153,13 @@
 - Validation: `zsh -n scripts/e2e-youtube.sh` passed.
 - Pending runtime validation: install Tart or use another Apple Silicon VM/test host, provide a real SSR link file, run `SSR_LINK_FILE=.e2e/ssr-link.txt scripts/e2e-youtube.sh`, and inspect `.e2e/results/` plus Console logs if the YouTube probe fails.
 
+### T14 Parallels VM runtime validation
+
+- Parallels VM `macOS` runs macOS 26.5.1 arm64 at `192.168.65.2`; SSH key access for user `test` is available and local deployment goes to `~/ssrmac-e2e`.
+- The first VM E2E launch installed `/Library/Application Support/ssrMac/ssr_mac_sysconf` successfully (`setuid root:admin`, version `1.0.0`) but app startup failed before writing the E2E result.
+- Direct VM launch showed dyld rejecting `ssrNative.framework` with Hardened Runtime library validation: `mapping process and mapped file (non-platform) have different Team IDs`.
+- Added `com.apple.security.cs.disable-library-validation` to `ssrMac/ssrMac.entitlements` so the self-use ad-hoc signed app can load its bundled frameworks under Hardened Runtime. This is needed for the current ad-hoc/self-use validation path; Developer ID distribution should revisit entitlements before notarization.
+
 ### T11 privileged helper decision
 
 - User selected self-use over distribution for the current migration phase and chose to keep the existing setuid helper for now.
