@@ -86,13 +86,13 @@ while [[ ! -f "$APP_RESULT_FILE" ]]; do
     sleep 1
 done
 
-status=$(plutil -extract status raw "$APP_RESULT_FILE")
+result_status=$(plutil -extract status raw "$APP_RESULT_FILE")
 message=$(plutil -extract message raw "$APP_RESULT_FILE")
 listen_port=$(plutil -extract listenPort raw "$APP_RESULT_FILE")
 APP_PID=$(plutil -extract pid raw "$APP_RESULT_FILE")
 
-log "app result: status=$status listen_port=$listen_port pid=$APP_PID message=$message"
-if [[ "$status" != "ready" ]]; then
+log "app result: status=$result_status listen_port=$listen_port pid=$APP_PID message=$message"
+if [[ "$result_status" != "ready" ]]; then
     fail "app did not become ready"
 fi
 
