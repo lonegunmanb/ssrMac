@@ -55,7 +55,7 @@ log "starting ssrMac E2E run; app=$APP_PATH result=$APP_RESULT_FILE test_url=$TE
 HELPER_SCRIPT="$APP_PATH/Contents/Resources/install_helper.sh"
 HELPER_PATH="/Library/Application Support/ssrMac/ssr_mac_sysconf"
 if [[ "${SKIP_HELPER_INSTALL:-NO}" != "YES" ]]; then
-    if [[ -x "$HELPER_SCRIPT" ]]; then
+    if [[ -f "$HELPER_SCRIPT" ]]; then
         log "installing helper with sudo; helper=$HELPER_PATH"
         sudo bash "$HELPER_SCRIPT" >> "$LOG_FILE" 2>&1
     else
