@@ -413,6 +413,12 @@ void onPACChange(
     [self updateMenu];
 }
 
+- (void)reloadProxyAfterSettingsChange {
+    NSLog(@"Reloading ShadowsocksR after settings change; requested local SOCKS5 port: %ld", (long)self.listenPort);
+    [ShadowsocksRunner reloadConfig];
+    [self updateMenu];
+}
+
 #pragma mark -
 
 - (void) doRunProxyLoop {
@@ -639,6 +645,7 @@ void onPACChange(
 
 - (void) setListenPort:(NSInteger)listenPort {
     [[NSUserDefaults standardUserDefaults] setValue:@(listenPort) forKey:kListenPortKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 // Correct the listening port

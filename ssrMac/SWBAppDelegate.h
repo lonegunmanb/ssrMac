@@ -16,4 +16,5 @@
 - (NSInteger) correctListenPort;
 - (void) modifySystemProxySettings:(BOOL)useProxy port:(NSInteger)port;
 - (void) updateMenu;
+- (void) reloadProxyAfterSettingsChange;
 @end

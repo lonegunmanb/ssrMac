@@ -25,6 +25,7 @@
     NSString *s = self.txtPort.stringValue;
     NSInteger i = [self integerFromString:s];
     self.appDelegate.listenPort = i;
+    [self.appDelegate reloadProxyAfterSettingsChange];
     [self.window performClose:self];
 }
 
